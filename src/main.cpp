@@ -1,34 +1,35 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h> 
+#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
-#include <FS.h>
+#include "FS.h"
 
-#include "ap_mode.cpp"
+ESP8266WebServer HTTP(80);
+#include "FileSystem.h"
+#include "data_json.h"
 
-const char *ssid = "server";
-const char *passwd = "yeswecan";
-String token = "123456"; 
-String temperature;
-String humidity;
-String pressure;
-String dust;
+void setup()
+{
+  Serial.begin(115200);
+  data_json data;
+  WiFi.begin("Galaxy", "Xiaominote5");  
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
 
-ESP8266WebServer server(80);
-
-
-
-void postRequest(){
-  
+  Serial.println("WiFi connected");  
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+  FS_init();
+  HTTP.begin();
+  Serial.println("Server is launch");
+  data.load_data_json();
 }
 
-
-void setup() {
-
-}
-
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-  server.handleClient();
+  HTTP.handleClient();
 }
