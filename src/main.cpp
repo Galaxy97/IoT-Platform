@@ -9,28 +9,57 @@ ESP8266WebServer HTTP(80);
 data_json data;
 #include "FileSystem.h"
 
-
 void setup()
 {
+  FS_init();
   Serial.begin(115200);
- 
-  WiFi.begin("Galaxy", "Xiaominote5");  
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  data.begin();
+  if (data.ssid == "defolt")
+  {
+    WiFi.mode(WIFI_AP_STA);
+    Serial.println("Scan wifi");
+    int n = WiFi.scanNetworks();
+    String SSIDS[n];
+    if (n != 0)
+    {
+      String str = "[";
+      for (int i = 0; i < n; i++)
+      {
+        SSIDS[i] = WiFi.SSID(i);
+        Serial.print(SSIDS[i]);
+        str += "{ \"ssid\" : " + WiFi.SSID(i) + "}";
+        if(i != n-1) str +=",";
+      }
+      str += "]";
+      data.write_scan_ssid(str);
+    }
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(data.ssid);
+
+    HTTP.on("/wifi_configs",HTTP_POST,[](){
+      data.ssid =  HTTP.arg("ssid");
+      data.passwd = HTTP.arg("passwd");
+      HTTP.send(200, "text/plain", "OK");
+      delay(15);
+      ESP.reset();
+    });
+  }
+  else
+  {
+    WiFi.begin(data.ssid, data.passwd);
+    byte tries = 30; // час на підключення до мережі
+    while (--tries && WiFi.status() != WL_CONNECTED)
+    {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.print("WL connected ");
+    Serial.println("SSID is" + data.ssid);
+    Serial.print("IP is ");
+    Serial.println(WiFi.localIP());
   }
 
-  Serial.println("WiFi connected");  
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  FS_init();
-  HTTP.on("/change",HTTP_GET, [](){
-    handleFileRead("/");
-    data.write_data_json();
-  } );
   HTTP.begin();
-  Serial.println("Server is launch");
-  data.load_data_json();
 }
 
 void loop()

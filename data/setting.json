@@ -1,7 +1,8 @@
 {
-    "ssid":"Galaxy",
-    "ip":"defolt",
-    "freqPollSensors":"nulll",
-    "freqSendToServer":"nulll"
-
+    "ssid":"defolt",
+    "passwd":"none",
+    "ip":"none",
+    "freqPollSensors":"none",
+    "freqSendToServer":"none"
 }
+
