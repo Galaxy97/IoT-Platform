@@ -1,80 +1,69 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h> 
+#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
+#include "FS.h"
+#include "data_json.h"
+ESP8266WebServer HTTP(80);
+data_json data;
+#include "FileSystem.h"
 
-const char *ssid = "server";
-const char *passwd = "yeswecan";
-String token = "123456"; 
-String temperature;
-String humidity;
-String pressure;
-String dust;
-
-ESP8266WebServer server(80);
-HTTPClient http;
-
-String index_page(){
-  String data;
-  data += "<!DOCTYPE html>";
-  data += "<html>";
-  data += "<head>";
-  data += " <title>IoT-Platfom</title>";
-  data += "</head>";
-  data += "<body align = 'center'>";
-  data += "   <h1 align='center'>Welcome</h1><hr>";
-  data += "   <p> Temperature is " + temperature + " </p>";
-  data += "   <p> Humidity is " + humidity + " </p>";
-  data += "   <p> Pressure is " + pressure + " </p>";
-  data += "   <p> Dust is " + dust + " </p>";
-  data += "</body>";
-  data += "</html>";
-  return data;
-}
-
-void postRequest(){
-  HTTPClient http;
-  http.begin("http://192.168.43.56/api/data");
-  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-  http.POST("temperature="+ temperature +"&humidity=" + humidity + "&pressure=" + pressure + "&co=400&dust=" + dust);
-  http.writeToStream(&Serial);
-  http.end();
-}
-
-void getData(){
-  temperature = String(random(10,25));
-  humidity = String(random(50,90));
-  pressure = String(random(950,1050));
-  dust = "0." + String(random(100,800)/100);
-}
-
-void setup() {
-  // put your setup code here, to run once:
+void setup()
+{
+  FS_init();
   Serial.begin(115200);
-  Serial.println("Connection to WIFI");
-  // ------------------------------------------- connection to wifi
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid,passwd);  
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }  
-  Serial.print("WiFi connected to ");
-  Serial.println(ssid);
-  Serial.println(WiFi.localIP());            //ip adress
-// ------------------------------------------- end connection to wifi
-  server.on("/", []() {
-    getData();
-    postRequest();
-    server.send(200, "text/html", index_page());
+  data.begin();
+  if (data.ssid == "defolt")
+  {
+    WiFi.mode(WIFI_AP_STA);
+    Serial.println("Scan wifi");
+    int n = WiFi.scanNetworks();
+    String SSIDS[n];
+    if (n != 0)
+    {
+      String str = "[";
+      for (int i = 0; i < n; i++)
+      {
+        SSIDS[i] = WiFi.SSID(i);
+        Serial.print(SSIDS[i]);
+        str += "{ \"ssid\" : " + WiFi.SSID(i) + "}";
+        if(i != n-1) str +=",";
+      }
+      str += "]";
+      data.write_scan_ssid(str);
+    }
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(data.ssid);
+
+    HTTP.on("/wifi_configs",HTTP_POST,[](){
+      data.ssid =  HTTP.arg("ssid");
+      data.passwd = HTTP.arg("passwd");
+      HTTP.send(200, "text/plain", "OK");
+      delay(15);
+      ESP.reset();
     });
+  }
+  else
+  {
+    WiFi.begin(data.ssid, data.passwd);
+    byte tries = 30; // час на підключення до мережі
+    while (--tries && WiFi.status() != WL_CONNECTED)
+    {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.print("WL connected ");
+    Serial.println("SSID is" + data.ssid);
+    Serial.print("IP is ");
+    Serial.println(WiFi.localIP());
+  }
 
-  server.begin();
+  HTTP.begin();
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
-  server.handleClient();
+  HTTP.handleClient();
 }
-
