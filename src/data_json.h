@@ -73,9 +73,6 @@ public:
         else
         {
             DynamicJsonDocument doc(1024);
-            DeserializationError error = deserializeJson(doc, data);
-            if (error)
-                Serial.println(F("Failed to read file"));
             doc["wifi"] = serialized(ssids);
             if (serializeJsonPretty(doc, data) == 0)
             {
