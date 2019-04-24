@@ -1,0 +1,139 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url("/fonts/Montserrat/Montserrat-Light.ttf");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url("/fonts/Montserrat/Montserrat-SemiBold.ttf");
+  font-weight: 600;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #4D4F64;
+}
+
+.container {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.heading .heading__title {
+  font-size: 3.5em;
+}
+
+.heading .heading__title .heading__title-selected {
+  color: #4E4DB0;
+}
+
+.content {
+  text-align: center;
+}
+
+.content__heading {
+  font-size: 1.33em;
+}
+
+.content__body {
+  -webkit-box-shadow: 0px 10px 50px rgba(171, 171, 171, 0.15);
+          box-shadow: 0px 10px 50px rgba(171, 171, 171, 0.15);
+  border-radius: 10px;
+  padding: 2em;
+  margin: 1em 0;
+  width: 400px;
+  text-align: left;
+}
+
+.content__body .active {
+  font-weight: 600;
+}
+
+.content__body .active-bold {
+  color: #0AE47B;
+}
+
+.content__form .content__input {
+  padding: 1em 1.6em;
+  margin: 1em 0;
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0px 10px 50px rgba(171, 171, 171, 0.15);
+          box-shadow: 0px 10px 50px rgba(171, 171, 171, 0.15);
+  border-radius: 5em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.content__submit {
+  border: 0;
+  border-radius: 30px;
+  width: 100%;
+  padding: 1em;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.content__submit-active {
+  background: #0AE47B;
+  color: white;
+  -webkit-box-shadow: 0px 5px 15px rgba(10, 228, 123, 0.3);
+          box-shadow: 0px 5px 15px rgba(10, 228, 123, 0.3);
+}
+
+.content__submit-active:hover, .content__submit-active:active {
+  -webkit-box-shadow: 0px 0px 10px rgba(10, 228, 123, 0.3);
+          box-shadow: 0px 0px 10px rgba(10, 228, 123, 0.3);
+}
+
+.content__submit-disabled {
+  background: #F9F9F9;
+  color: #c9c9c9;
+  -webkit-box-shadow: 0px 0px 30px rgba(171, 171, 171, 0.18);
+          box-shadow: 0px 0px 30px rgba(171, 171, 171, 0.18);
+}
+
+.content__list-element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1em 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.content__list-element .wifi-name {
+  vertical-align: middle;
+  width: 80%;
+}
+
+.content__list-element .wifi-icon {
+  width: 20%;
+  text-align: right;
+  color: #ABABAB;
+}
+
+.content__list-element .wifi-icon_active {
+  color: #0AE47B;
+}
+/*# sourceMappingURL=styles.css.map */
