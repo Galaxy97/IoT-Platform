@@ -7,11 +7,12 @@
 #include "FS.h"
 #include "data_json.h"
 
+
 String serial_number = "147852";
 String token = "963258";
 
 void sendMonitoringDataToServer();
-Ticker timer4(sendMonitoringDataToServer, 5000);
+Ticker timer4(sendMonitoringDataToServer, 10000);
 ESP8266WebServer HTTP(80);
 data_json data;
 #include "FileSystem.h"
@@ -42,8 +43,6 @@ void setup(){
     }
   }
 }
-
-
 
 void loop()
 {

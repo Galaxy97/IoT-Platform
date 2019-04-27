@@ -41,10 +41,19 @@ void ap_server()
   WiFi.softAP("default");
 
   HTTP.on("/wifi_configs", HTTP_POST, []() {
-    data.ssid = HTTP.arg("ssid");
-    data.passwd = HTTP.arg("passwd");
+    Serial.println(HTTP.arg(0));
+    StaticJsonDocument<200> doc;
+            DeserializationError error = deserializeJson(doc, HTTP.arg(0));
+            if (error)
+                Serial.println(F("Failed to read file"));
+    
+    // data.ssid = HTTP.arg("ssid");
+    // data.passwd = HTTP.arg("password");
+    data.ssid = doc["ssid"] | "default";
+    data.passwd = doc["password"] | "";
+    data.write_data_json();
     HTTP.send(200, "text/plain", "OK");
-    delay(15);
+    delay(250);
     ESP.reset();
   });
 }
@@ -73,12 +82,14 @@ bool sta_server()
     if (i < 3)
       data.ip += ".";
   }
-  
-  if (WiFi.status() == WL_CONNECTED){
+
+  if (WiFi.status() == WL_CONNECTED)
+  {
     Serial.println("Connected succes");
     return true;
   }
-  else{
+  else
+  {
     Serial.println("Connected is NOT succes");
     return false;
   }

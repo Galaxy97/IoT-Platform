@@ -1,6 +1,6 @@
 {
-    "ssid":"Galaxy",
-    "passwd":"Xiaominote5",
+    "ssid":"default",
+    "passwd":"",
     "ip":"none",
     "timePollSensors":"none",
     "timeSendToServer":"none"
