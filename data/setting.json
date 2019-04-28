@@ -1,8 +1,16 @@
 {
+<<<<<<< HEAD
     "ssid":"default",
     "passwd":"",
     "ip":"none",
     "timePollSensors":"none",
     "timeSendToServer":"none"
+=======
+    "ssid":"Galaxy",
+    "passwd":"Xiaominote5",
+    "ip":"none",
+    "freqPollSensors":"none",
+    "freqSendToServer":"none"
+>>>>>>> 8842e34d02b238984f94af704f33f9b065f4fb4d
 }
 

@@ -1,3 +1,11 @@
 {
+<<<<<<< HEAD
   "wifi": [{ "ssid" : "netis_E0571D", "power" : "-68", "open" : "false},{ "ssid" : "Margo", "power" : "-57", "open" : "false},{ "ssid" : "prizrak", "power" : "-87", "open" : "false},{ "ssid" : "Nowifi", "power" : "-91", "open" : "false},{ "ssid" : "Sum65k32", "power" : "-52", "open" : "false},{ "ssid" : "TP-LINK_6812", "power" : "-81", "open" : "false},{ "ssid" : "Keenetic-3533", "power" : "-79", "open" : "false},{ "ssid" : "Galaxy", "power" : "-24", "open" : "false},{ "ssid" : "TP-LINK_939C", "power" : "-54", "open" : "false},{ "ssid" : "TP-LINK", "power" : "-87", "open" : "false},{ "ssid" : "Batcave", "power" : "-85", "open" : "false},{ "ssid" : "Inna_McLaut", "power" : "-65", "open" : "false},{ "ssid" : "Kyivstar_0D10", "power" : "-82", "open" : "false},{ "ssid" : "Anet", "power" : "-64", "open" : "false}]
+=======
+    "wifi":[
+        {"ssid":"name1"},
+        {"ssid":"name2"},
+        {"ssid":"name3"}        
+    ]
+>>>>>>> 8842e34d02b238984f94af704f33f9b065f4fb4d
 }
