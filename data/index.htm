@@ -1,46 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Contole device page</title>
-    <style>
-        h1 {
-            text-align: center;
-            padding-top: 5%;
-            font-family: sans-serif;
-            font-size: 50px;
-        }
-        h1 span {
-            color: blue;
-        }
-
-        .text {
-            text-align: center;
-            font-family: sans-serif;
-            font-size: 25px;
-        }
-    </style>
+	<meta charset=utf-8>
+	<meta http-equiv=X-UA-Compatible content="IE=edge">
+	<meta name=viewport content="width=device-width,initial-scale=1">
+	<link rel=icon href=/favicon.ico>
+	<title>device-setup</title>
+	<link href=/app.js rel=preload as=script>
 </head>
-<body onload="start()">
-    <h1><span>IoT</span> platform</h1>
-    <div class="text">
-        Please chose Your wifi zone and input password
-        <output></output>
-    </div>
-
-    <script>
-        var arr = {"wifi": [
-            { "ssid" : Margo},{ "ssid" : Sum65k32},
-            { "ssid" : netis_E0571D},{ "ssid" : prizrak},
-            { "ssid" : Keenetic-3533},{ "ssid" : Galaxy},
-            { "ssid" : TP-LINK_939C},{ "ssid" : K23},
-            { "ssid" : Anet}]};
-        function start(){
-            
-        }
-
-    </script>
+<body>
+	<noscript><strong>We're sorry but device-setup doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
+	<div id=app></div>
+	<script src=app.js></script>
 </body>
 </html>
