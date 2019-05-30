@@ -42,7 +42,7 @@ void send_monitoring_data_to_server()
     data += "&temp=" + String(bme.readTemperature());
     data += "&hum=" + String(bme.readHumidity());
     data += "&pres=" + String(bme.readPressure() / 100.0F);
-    data += "&dust=" + dust_sensor();
+    data += "&dust=" + String(dust_sensor());
     Serial.println(data);
     int httpCode = http.POST(data);
     if (httpCode == 200)
@@ -55,15 +55,3 @@ void send_monitoring_data_to_server()
     http.end(); //Close connection
 }
 
-String dust_sensor()
-{
-    digitalWrite(ledPin, LOW); // power on the LED
-    delayMicroseconds(280);
-    float voltsMeasured = ads.readADC_SingleEnded(0); // read the dust value
-    delayMicroseconds(40);
-    digitalWrite(ledPin, HIGH); // turn the LED off
-    delayMicroseconds(9680);
-    //measure your 5v and change below
-    float calcVoltage = (voltsMeasured * 0.1875) / 1000;
-    return String(0.17 * calcVoltage);
-}

@@ -34,4 +34,22 @@ void sta_server_routes(){
     Serial.println("clean parametres");
     ESP.reset();
   });
+
+  HTTP.on("/poll_sensors", HTTP_GET, []() {
+    polling_sensors();
+    HTTP.send(200, "text/html","ok");
+  });
+
+   HTTP.on("/read_all_eeprom", HTTP_GET, []() {
+    HTTP.send(200, "text/html", s_read_all_eeprom());
+  });
+   HTTP.on("/read_data_eeprom", HTTP_GET, []() {
+     read_data_from_eeprom();
+    HTTP.send(200, "text/html", "ok");
+  });
+
+  HTTP.on("/start_addres_eeprom", HTTP_GET, []() {
+    write_one_EEPROM(100,128);
+    HTTP.send(200, "text/html", "ok");
+  });
 }
