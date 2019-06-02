@@ -10,5 +10,9 @@
         "unordered_map": "cpp",
         "vector": "cpp",
         "initializer_list": "cpp"
+    },
+    "terminal.integrated.env.linux": {
+        "PATH": "/home/galaxy/.platformio/penv/bin:/home/galaxy/.platformio/penv:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PLATFORMIO_CALLER": "vscode"
     }
 }

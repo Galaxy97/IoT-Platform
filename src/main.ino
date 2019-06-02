@@ -31,8 +31,8 @@ Adafruit_ADS1115 ads;
 
 void send_monitoring_data_to_server();
 void polling_sensors();
-// Ticker timer4(send_monitoring_data_to_server, 10000);
-//Ticker timer3(polling_sensors,2500);
+Ticker timer4(send_monitoring_data_to_server, 10000);
+Ticker timer3(polling_sensors,2500);
 
 char LAN_SSID[16];
 char LAN_PSWD[16];
@@ -61,10 +61,10 @@ void setup()
   else if (begin_sta_connection())
   {
     HTTP.begin();
-    // while (!registr_device())
-    //   delay(5000);
-    // timer4.start();
-    //timer3.start();
+    while (!registr_device())
+      delay(5000);
+    timer4.start();
+    timer3.start();
     bme.begin(0x76);
     pinMode(ledPin, OUTPUT);
     ads.setGain(GAIN_ONE);
@@ -89,8 +89,8 @@ void loop()
 {
   // put your main code here, to run repeatedly:
   HTTP.handleClient();
-  // timer4.update();
-  //timer3.update();
+  timer4.update();
+  timer3.update();
 }
 
 const int NTP_PACKET_SIZE = 48; // NTP time is in the first 48 bytes of message

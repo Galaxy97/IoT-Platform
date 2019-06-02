@@ -3,7 +3,7 @@ bool registr_device()
     yield();
     WiFiClient client;
     HTTPClient http;                                                     //Declare object of class HTTPClient
-    http.begin(client, "http://iotplatform.ikto.net/api/device/reg");    //Specify request destination
+    http.begin(client, "http://192.168.43.56/api/device/reg");    //Specify request destination
     http.addHeader("Content-Type", "application/x-www-form-urlencoded"); //Specify content-type header
     String data_request = "serial=" + SERIAL_NUMBER;
     data_request += "&token=" + TOKEN;
@@ -36,17 +36,18 @@ void send_monitoring_data_to_server()
     yield();
     WiFiClient client;
     HTTPClient http;                                                     //Declare object of class HTTPClient
-    http.begin(client, "http://iotplatform.ikto.net/api/device/save");   //Specify request destination
+    http.begin(client, "http://192.168.43.56/api/device/save");   //Specify request destination
     http.addHeader("Content-Type", "application/x-www-form-urlencoded"); //Specify content-type header
-    String data = "serial=" + SERIAL_NUMBER;
-    data += "&temp=" + String(bme.readTemperature());
-    data += "&hum=" + String(bme.readHumidity());
-    data += "&pres=" + String(bme.readPressure() / 100.0F);
-    data += "&dust=" + String(dust_sensor());
+    String data = "{\"serial\":" + SERIAL_NUMBER;
+    data += ", \"data\":";
+    data += read_data_from_eeprom();
+    data += "}";
+
     Serial.println(data);
     int httpCode = http.POST(data);
     if (httpCode == 200)
     {
+        clean_eeprom();
         String payload = http.getString(); //Get the response payload
         Serial.println(httpCode);          //Print HTTP return code
         Serial.println(payload);           //Print request response payload

@@ -4,13 +4,18 @@ void polling_sensors()
     unsigned long time_now = now();
     Serial.println(time_now);
     uint8_t addr = read_one_EEPROM(100);
+    if (addr >= 234 )
+    {
+         write_one_EEPROM(100, 128);
+    }
+    
     for (size_t i = 0; i < 4; i++)
     {
         write_data_to_eeprom(data_arr[i], addr);
         addr += 4;
     }
     delay(5);
-    write_long_data_to_eeprom(time_now, addr);
+    EEPROM_long_write(addr,time_now);
     addr += 4;
     write_one_EEPROM(100, addr);
     Serial.print("write to eeprom 100: ");
