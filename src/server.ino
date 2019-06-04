@@ -40,16 +40,8 @@ void sta_server_routes(){
     HTTP.send(200, "text/html","ok");
   });
 
-   HTTP.on("/read_all_eeprom", HTTP_GET, []() {
-    HTTP.send(200, "text/html", read_data_from_eeprom());
-  });
-   HTTP.on("/read_data_eeprom", HTTP_GET, []() {
-     read_data_from_eeprom();
-    HTTP.send(200, "text/html", "ok");
-  });
-
   HTTP.on("/start_addres_eeprom", HTTP_GET, []() {
-    write_one_EEPROM(100,128);
+    write_key_EEPROM(100,128);
     HTTP.send(200, "text/html", "ok");
   });
 }

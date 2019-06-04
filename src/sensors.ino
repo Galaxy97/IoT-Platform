@@ -3,10 +3,15 @@ void polling_sensors()
     float data_arr[4] = {bme.readTemperature(), bme.readHumidity(), bme.readPressure() / 100.0F, dust_sensor()};
     unsigned long time_now = now();
     Serial.println(time_now);
-    uint8_t addr = read_one_EEPROM(100);
-    if (addr >= 234 )
+    uint16_t addr = read_key_EEPROM(100);
+    if(addr >= 148 && flag)
     {
-         write_one_EEPROM(100, 128);
+        write_key_EEPROM(102,addr);
+        flag = false;
+    }
+    if (addr >= 4000 )
+    {
+         write_key_EEPROM(100,128);
     }
     
     for (size_t i = 0; i < 4; i++)
@@ -17,7 +22,7 @@ void polling_sensors()
     delay(5);
     EEPROM_long_write(addr,time_now);
     addr += 4;
-    write_one_EEPROM(100, addr);
+    write_key_EEPROM(100,addr);
     Serial.print("write to eeprom 100: ");
     Serial.println(addr);
 }

@@ -31,14 +31,15 @@ Adafruit_ADS1115 ads;
 
 void send_monitoring_data_to_server();
 void polling_sensors();
-Ticker timer4(send_monitoring_data_to_server, 10000);
-Ticker timer3(polling_sensors,2500);
+Ticker timer4(send_monitoring_data_to_server, 60000);
+Ticker timer3(polling_sensors,10000);
 
 char LAN_SSID[16];
 char LAN_PSWD[16];
 char IP_DEVICE[16];
 String scan_ssid;
 uint16_t eeprom_data_addres = 128;
+bool flag = true;
 
 time_t getNtpTime();
 String digitalClockDisplay();
