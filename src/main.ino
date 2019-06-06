@@ -16,7 +16,7 @@
 
 #define DEFAULT_SSID "**default_ssid**"
 #define ledPin 14
-#define EEPROM_SIZE 512
+#define EEPROM_SIZE 4096
 String SERIAL_NUMBER = "123";
 String TOKEN = "1927";
 static const char ntpServerName[] = "ua.pool.ntp.org";
@@ -31,8 +31,8 @@ Adafruit_ADS1115 ads;
 
 void send_monitoring_data_to_server();
 void polling_sensors();
-Ticker timer4(send_monitoring_data_to_server, 60000);
-Ticker timer3(polling_sensors,10000);
+Ticker timer4(send_monitoring_data_to_server, 20000);
+Ticker timer3(polling_sensors,5000);
 
 char LAN_SSID[16];
 char LAN_PSWD[16];

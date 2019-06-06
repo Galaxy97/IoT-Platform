@@ -69,6 +69,7 @@ bool begin_sta_connection()
         if(ip[i]!= IP_DEVICE[i]) {
           Serial.println("ip is changed");
           writeEEPROM(32,16,strdup(ip.c_str())); // якщо адреса відрізняється перезаписати її
+          for(uint8_t i = 0;i<14;i++) IP_DEVICE[i] = ip[i];
           break;
           }
         }    
